@@ -12,9 +12,10 @@ import VideoPlayerContainer from '../../src/containers/VideoPlayerContainer.js';
 var component,
   container;
 
+// changed names in mock store to reflect keys in actual store
 var store = createMockStore({
-  videoList: [{script: 'but only when they\'re green.'}],
-  currentVideo: { script: 'I like traffic lights.'}
+  videos: [{script: 'but only when they\'re green.'}],
+  video: { script: 'I like traffic lights.'}
 }, {changeVideoList});
 
 describe('containers', function() {
@@ -26,9 +27,10 @@ describe('containers', function() {
     beforeEach(function() {
       store.dispatch.reset();
     });
-    it('should have a prop called handleSearchInputChange which dispatches handleVideoSearch', function() {
-      component.props().handleSearchInputChange('kitten mittens');
-      expect(component.props().handleSearchInputChange).to.be.a('function');
+    // changed prop name to reflect name on search component
+    it('should have a prop called handleInputChange which dispatches handleVideoSearch', function() {
+      component.props().handleInputChange('kitten mittens');
+      expect(component.props().handleInputChange).to.be.a('function');
       expect(store.dispatch.callCount).to.equal(1);
     });
     it('should be created using the React-Redux connect method', function() {
@@ -47,7 +49,7 @@ describe('containers', function() {
       expect(component.props().handleVideoListEntryTitleClick).to.be.a('function');
       expect(store.dispatch.callCount).to.equal(1);
     });
-    it('should have a prop called videos connected to the videoList in the store', function() {
+    it('should have a prop called videos connected to the videos in the store', function() {
       expect(component.prop('videos')).to.be.an('array');
       expect(component.prop('videos')).to.deep.equal([{script: 'but only when they\'re green.'}]);
     });
@@ -62,7 +64,7 @@ describe('containers', function() {
     beforeEach(function() {
       store.dispatch.reset();
     });
-    it('should have a prop called video connected to the currentVideo in the store', function() {
+    it('should have a prop called video connected to the video in the store', function() {
       expect(component.prop('video')).to.be.an('object');
       expect(component.prop('video')).to.deep.equal({ script: 'I like traffic lights.'});
     });
